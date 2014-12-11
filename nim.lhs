@@ -74,7 +74,7 @@ Game loop
 >       run_turns (player `mod` 2 + 1) new_board
 
 > is_winning_board :: [Integer] -> Bool
-> is_winning_board board = all (==0) board
+> is_winning_board = all (==0)
 
 > run_turn :: Integer -> [Integer] -> IO [Integer]
 > run_turn player board =
