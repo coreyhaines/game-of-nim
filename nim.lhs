@@ -2,6 +2,7 @@
 >
 > import System.IO
 > import Data.Traversable
+> import Data.List
 >
 
 Main entry point for game
@@ -59,7 +60,7 @@ Board display utilities
 _______________________
 
 > star_line :: Integer -> String
-> star_line size = replicate (fromIntegral size) '*'
+> star_line size = genericReplicate size '*'
 
 Game loop
 --------------
