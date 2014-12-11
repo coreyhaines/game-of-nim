@@ -58,9 +58,8 @@ User Interaction Functions
 Board display utilities
 _______________________
 
-> star_line :: Integer -> [Char]
-> star_line 0 = []
-> star_line size = '*' : star_line (size - 1)
+> star_line :: Integer -> String
+> star_line size = replicate (fromIntegral size) '*'
 
 Game loop
 --------------
