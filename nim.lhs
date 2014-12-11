@@ -19,8 +19,7 @@ start_nim
 >     winner <- run_turns 1 starting_board
 >     print_winner winner
 
-Functions to print information
-for the user
+User Interaction Functions
 -------------------------
 
 > print_instructions :: IO ()
@@ -35,28 +34,24 @@ for the user
 
 > print_board :: [Integer] -> IO ()
 > print_board [] = return ()
-> print_board lines =
->   do putStrLn "Current Board:"
->      print_lines 1 lines
+> print_board lines = putStrLn "Current Board:" >> print_lines lines
 
-> print_lines :: Integer -> [Integer] -> IO ()
-> print_lines _ [] = return ()
-> print_lines index (line:lines) =
->   do putStr (show index)
->      putStr ": "
->      putStr $ star_line line
->      putChar '\n'
->      print_lines (index+1) lines
-
-
-> star_line :: Integer -> [Char]
-> star_line 0 = []
-> star_line size = '*' : star_line (size - 1)
+> print_lines :: [Integer] -> IO ()
+> print_lines lines = print_lines' 1 lines
+>   where print_lines' _ [] = return ()
+>         print_lines' index (line:lines) = print_strings_ln [(show index), ": ", (star_line line)] >> print_lines' (index + 1) lines
 
 > print_strings_ln :: [String] -> IO ()
 > print_strings_ln [] = return ()
 > print_strings_ln [x] = putStrLn x
 > print_strings_ln (x:xs) = putStr x >> print_strings_ln xs
+
+Board display utilities
+_______________________
+
+> star_line :: Integer -> [Char]
+> star_line 0 = []
+> star_line size = '*' : star_line (size - 1)
 
 Game loop
 --------------
