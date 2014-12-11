@@ -41,6 +41,16 @@ User Interaction Functions
 >   where print_lines' _ [] = return ()
 >         print_lines' index (line:lines) = print_strings_ln [(show index), ": ", (star_line line)] >> print_lines' (index + 1) lines
 
+> get_move :: IO (Integer, Integer)
+> get_move =
+>   do
+>     putStr "Please enter the line you want to remove stars from: "
+>     line <- getLine
+>     putStr "Please enter the number of stars (1 or 2)"
+>     count <- getLine
+>     return (read line :: Integer, read count :: Integer)
+
+
 > print_strings_ln :: [String] -> IO ()
 > print_strings_ln [] = return ()
 > print_strings_ln [x] = putStrLn x
@@ -86,13 +96,3 @@ Game loop
 > apply_at _ _ [] = []
 > apply_at f 0 (x:xs) = f x : xs
 > apply_at f index (x:xs) = x : apply_at f (index - 1) xs
-
-> get_move :: IO (Integer, Integer)
-> get_move =
->   do
->     putStr "Please enter the line you want to remove stars from: "
->     line <- getLine
->     putStr "Please enter the number of stars (1 or 2)"
->     count <- getLine
->     return (read line :: Integer, read count :: Integer)
-
