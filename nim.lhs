@@ -37,24 +37,21 @@ for the user
 > print_board [] = return ()
 > print_board lines =
 >   do putStrLn "Current Board:"
->      print_line 1 lines
+>      print_lines 1 lines
 
-> print_line :: Integer -> [Integer] -> IO ()
-> print_line _ [] = return ()
-> print_line index (line:lines) =
+> print_lines :: Integer -> [Integer] -> IO ()
+> print_lines _ [] = return ()
+> print_lines index (line:lines) =
 >   do putStr (show index)
 >      putStr ": "
->      print_line_stars line
+>      putStr $ star_line line
 >      putChar '\n'
->      print_line (index+1) lines
+>      print_lines (index+1) lines
 
 
-> print_line_stars :: Integer -> IO ()
-> print_line_stars 0 = return ()
-> print_line_stars size =
->   do putChar '*'
->      print_line_stars (size - 1)
->      return ()
+> star_line :: Integer -> [Char]
+> star_line 0 = []
+> star_line size = '*' : star_line (size - 1)
 
 > print_strings_ln :: [String] -> IO ()
 > print_strings_ln [] = return ()
