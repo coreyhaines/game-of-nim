@@ -1,6 +1,7 @@
 > module Nim where
 >
 > import System.IO
+> import Data.Traversable
 >
 
 Main entry point for game
@@ -52,9 +53,7 @@ User Interaction Functions
 
 
 > print_strings_ln :: [String] -> IO ()
-> print_strings_ln [] = return ()
-> print_strings_ln [x] = putStrLn x
-> print_strings_ln (x:xs) = putStr x >> print_strings_ln xs
+> print_strings_ln xs = traverse putStr xs >> putStrLn ""
 
 Board display utilities
 _______________________
