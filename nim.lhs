@@ -84,11 +84,11 @@ Game loop
 >     print_board board
 >     (line,count) <- get_move
 >     print_strings_ln ["You chose to remove ", (show count), " stars from line ", (show line)]
->     new_board <- update_board board (line,count)
+>     new_board <- return(update_board board (line,count))
 >     return (new_board)
 
-> update_board :: [Integer] -> (Integer, Integer) -> IO [Integer]
-> update_board board (line,count) = return (new_board)
+> update_board :: [Integer] -> (Integer, Integer) -> [Integer]
+> update_board board (line,count) = new_board
 >   where new_board = apply_at (\x -> x - count) (line - 1) board
 
 > apply_at :: (Integer -> Integer) -> Integer -> [Integer] -> [Integer]
