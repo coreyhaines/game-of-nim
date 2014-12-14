@@ -88,8 +88,7 @@ Game loop
 >     return (new_board)
 
 > update_board :: [Integer] -> (Integer, Integer) -> [Integer]
-> update_board board (line,count) = new_board
->   where new_board = apply_at (\x -> x - count) (line - 1) board
+> update_board board (line,count) = apply_at (\x -> x - count) (line - 1) board
 
 > apply_at :: (Integer -> Integer) -> Integer -> [Integer] -> [Integer]
 > apply_at _ _ [] = []
