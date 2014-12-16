@@ -14,14 +14,16 @@ start_nim
 
 > type Board = [Integer]
 > type Move = (Integer, Integer)
+> type Player = Integer
 
 > starting_board = [5,4,3,2,1]
+> starting_player = 1
 
 > start_nim :: IO ()
 > start_nim =
 >   do
 >     print_instructions
->     winner <- run_turns 1 starting_board
+>     winner <- run_turns starting_player starting_board
 >     print_winner winner
 
 User Interaction Functions
@@ -33,7 +35,7 @@ User Interaction Functions
 >     putStrLn "Welcome to Nim"
 >     putStrLn "a most fun game"
 
-> print_winner :: Integer -> IO ()
+> print_winner :: Player -> IO ()
 > print_winner 0 = putStrLn "No winner yet"
 > print_winner winner = print_strings_ln ["Player ", (show winner), " is the winner"]
 
@@ -68,7 +70,7 @@ _______________________
 Game loop
 --------------
 
-> run_turns :: Integer -> Board -> IO Integer
+> run_turns :: Player -> Board -> IO Player
 > run_turns player board =
 >   do
 >     new_board <- run_turn player board
@@ -80,7 +82,7 @@ Game loop
 > is_winning_board :: Board -> Bool
 > is_winning_board = all (==0)
 
-> run_turn :: Integer -> Board -> IO Board
+> run_turn :: Player -> Board -> IO Board
 > run_turn player board =
 >   do
 >     print_strings_ln ["Player ", (show player), "'s turn"]
