@@ -12,6 +12,8 @@ To run the game:
 :l nim
 start_nim
 
+> type Board = [Integer]
+
 > starting_board = [5,4,3,2,1]
 
 > start_nim :: IO ()
@@ -34,11 +36,11 @@ User Interaction Functions
 > print_winner 0 = putStrLn "No winner yet"
 > print_winner winner = print_strings_ln ["Player ", (show winner), " is the winner"]
 
-> print_board :: [Integer] -> IO ()
+> print_board :: Board -> IO ()
 > print_board [] = return ()
 > print_board lines = putStrLn "Current Board:" >> print_lines lines
 
-> print_lines :: [Integer] -> IO ()
+> print_lines :: Board -> IO ()
 > print_lines lines = print_lines' 1 lines
 >   where print_lines' _ [] = return ()
 >         print_lines' index (line:lines) = print_strings_ln [(show index), ": ", (star_line line)] >> print_lines' (index + 1) lines
@@ -65,7 +67,7 @@ _______________________
 Game loop
 --------------
 
-> run_turns :: Integer -> [Integer] -> IO Integer
+> run_turns :: Integer -> Board -> IO Integer
 > run_turns player board =
 >   do
 >     new_board <- run_turn player board
@@ -74,10 +76,10 @@ Game loop
 >     else
 >       run_turns (player `mod` 2 + 1) new_board
 
-> is_winning_board :: [Integer] -> Bool
+> is_winning_board :: Board -> Bool
 > is_winning_board = all (==0)
 
-> run_turn :: Integer -> [Integer] -> IO [Integer]
+> run_turn :: Integer -> Board -> IO Board
 > run_turn player board =
 >   do
 >     print_strings_ln ["Player ", (show player), "'s turn"]
@@ -87,10 +89,10 @@ Game loop
 >     new_board <- return(update_board board (line,count))
 >     return (new_board)
 
-> update_board :: [Integer] -> (Integer, Integer) -> [Integer]
+> update_board :: Board -> (Integer, Integer) -> Board
 > update_board board (line,count) = apply_at (\x -> x - count) (line - 1) board
 
-> apply_at :: (Integer -> Integer) -> Integer -> [Integer] -> [Integer]
+> apply_at :: (Integer -> Integer) -> Integer -> Board -> Board
 > apply_at _ _ [] = []
 > apply_at f 0 (x:xs) = f x : xs
 > apply_at f index (x:xs) = x : apply_at f (index - 1) xs
