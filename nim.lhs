@@ -13,6 +13,7 @@ To run the game:
 start_nim
 
 > type Board = [Integer]
+> type Move = (Integer, Integer)
 
 > starting_board = [5,4,3,2,1]
 
@@ -45,7 +46,7 @@ User Interaction Functions
 >   where print_lines' _ [] = return ()
 >         print_lines' index (line:lines) = print_strings_ln [(show index), ": ", (star_line line)] >> print_lines' (index + 1) lines
 
-> get_move :: IO (Integer, Integer)
+> get_move :: IO Move
 > get_move =
 >   do
 >     putStr "Please enter the line you want to remove stars from: "
@@ -89,7 +90,7 @@ Game loop
 >     new_board <- return(update_board board (line,count))
 >     return (new_board)
 
-> update_board :: Board -> (Integer, Integer) -> Board
+> update_board :: Board -> Move -> Board
 > update_board board (line,count) = apply_at (\x -> x - count) (line - 1) board
 
 > apply_at :: (Integer -> Integer) -> Integer -> Board -> Board
